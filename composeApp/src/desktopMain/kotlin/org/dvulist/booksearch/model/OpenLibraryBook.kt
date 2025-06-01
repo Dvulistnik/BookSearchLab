@@ -1,0 +1,73 @@
+package org.dvulist.booksearch.model
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class OpenLibraryBookApiResponse(
+    val numFound: Int? = null,
+    val start: Int? = null,
+    val numFoundExact: Boolean? = null,
+    val docs: List<OpenLibraryDoc>? = null,
+    val q: String? = null,
+    val offset: Int? = null
+)
+
+@Serializable
+data class OpenLibraryDoc(
+    val key: String? = null,
+    val type: String? = null,
+    val seed: List<String>? = null,
+    val title: String? = null,
+    val title_suggest: String? = null,
+    val edition_count: Int? = null,
+    val edition_key: List<String>? = null,
+    val publish_date: List<String>? = null,
+    val publish_year: List<Int>? = null,
+    val first_publish_year: Int? = null,
+    val number_of_pages_median: Int? = null,
+    val lcc: List<String>? = null,
+    val lcc_sort: String? = null,
+    val ddc: List<String>? = null,
+    val ddc_sort: String? = null,
+    val isbn: List<String>? = null,
+    val last_modified_i: Long? = null,
+    val ebook_count_i: Int? = null,
+    val has_fulltext: Boolean? = null,
+    val public_scan_b: Boolean? = null,
+    val ia: List<String>? = null,
+    val ia_collection_s: String? = null,
+    val ia_collection: List<String>? = null,
+    val lending_edition_s: String? = null,
+    val lending_identifier_s: String? = null,
+    val printdisabled_b: Boolean? = null,
+    val cover_i: Long? = null,
+    val cover_edition_key: String? = null,
+    val first_sentence: List<String>? = null,
+    val publisher: List<String>? = null,
+    val language: List<String>? = null,
+    val author_key: List<String>? = null,
+    val author_name: List<String>? = null,
+    val author_alternative_name: List<String>? = null,
+    val subject: List<String>? = null,
+    val place: List<String>? = null,
+    val time: List<String>? = null,
+    val person: List<String>? = null,
+    val id_amazon: List<String>? = null,
+    val id_goodreads: List<String>? = null,
+    val id_librarything: List<String>? = null,
+    val id_google: List<String>? = null,
+    val id_scribd: List<String>? = null,
+    val id_wikidata: List<String>? = null,
+    val id_dnb: List<String>? = null,
+    val id_overdrive: List<String>? = null,
+    val id_hathiTrust: List<String>? = null,
+    val id_canadian_national_library_archive: List<String>? = null,
+    val id_bibliopolis: List<String>? = null,
+    val id_paperbackswap: List<String>? = null,
+    val id_librivox: List<String>? = null,
+    val place_key: List<String>? = null,
+    val time_key: List<String>? = null,
+    val person_key: List<String>? = null,
+    val subject_key: List<String>? = null,
+    val ddc_parts: List<String>? = null
+)
