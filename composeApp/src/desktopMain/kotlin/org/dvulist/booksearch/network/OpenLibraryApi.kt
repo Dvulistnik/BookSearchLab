@@ -25,14 +25,4 @@ class OpenLibraryApi(private val client: HttpClient = HttpClientProvider.client)
             }
         }.body()
     }
-
-    /**
-     * Дополнительная функция для получения деталей книги по ISBN.
-     * Часто ISBN является самым надежным способом поиска точной информации.
-     */
-    suspend fun searchBookDetailsByIsbn(isbn: String): OpenLibraryBookApiResponse {
-        return client.get(BASE_URL) {
-            parameter("q", "isbn:$isbn") // Параметр q для поиска по ISBN
-        }.body()
-    }
 }

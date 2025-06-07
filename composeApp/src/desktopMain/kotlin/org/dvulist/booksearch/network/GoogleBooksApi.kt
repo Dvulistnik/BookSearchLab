@@ -18,8 +18,9 @@ class GoogleBooksApi(private val client: HttpClient = HttpClientProvider.client)
      * @return Объект GoogleBooksApiResponse, содержащий список найденных книг.
      */
     suspend fun searchBooks(query: String): GoogleBooksApiResponse {
-        // Выполняем GET-запрос к API Google Books с параметром 'q' (query)
-        // .body() автоматически десериализует JSON-ответ в GoogleBooksApiResponse
-        return client.get("$BASE_URL?q=$query").body()
+        return client.get(BASE_URL) {
+            parameter("q", query)
+            parameter("maxResults", 40) // Явно указываем максимум
+        }.body()
     }
 }

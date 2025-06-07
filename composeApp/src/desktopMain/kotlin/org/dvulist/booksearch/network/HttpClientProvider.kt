@@ -1,9 +1,9 @@
 package org.dvulist.booksearch.network
 
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 /**
@@ -11,13 +11,12 @@ import kotlinx.serialization.json.Json
  * Это синглтон, чтобы избежать создания множества экземпляров HttpClient.
  */
 object HttpClientProvider {
-    val client: HttpClient = HttpClient(CIO) { // Инициализируем HttpClient с движком CIO
-        // Устанавливаем плагин для работы с Content Negotiation, в данном случае для JSON
+    val client: HttpClient = HttpClient(CIO) {
         install(ContentNegotiation) {
             json(Json {
-                ignoreUnknownKeys = true // Игнорировать поля в JSON, которых нет в модели данных
-                prettyPrint = true      // Красивый вывод JSON (для отладки)
-                isLenient = true        // Разрешить нестрогий парсинг JSON
+                ignoreUnknownKeys = true
+                prettyPrint = true
+                isLenient = true
             })
         }
     }

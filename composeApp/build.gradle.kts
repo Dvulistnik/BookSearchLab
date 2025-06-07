@@ -10,10 +10,10 @@ plugins {
 
 kotlin {
     jvm("desktop")
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -24,7 +24,16 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(compose.materialIconsExtended)
-            implementation("io.coil-kt.coil3:coil-compose:3.2.0")
+
+            implementation("io.ktor:ktor-client-core")
+            implementation("io.ktor:ktor-client-cio")
+            implementation("io.ktor:ktor-client-content-negotiation")
+            implementation("io.ktor:ktor-serialization-kotlinx-json")
+            implementation("io.ktor:ktor-utils")
+
+            implementation("io.ktor:ktor-client-core:2.3.11")
+            implementation("io.ktor:ktor-client-cio:2.3.11")
+            implementation("org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.61")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -33,18 +42,23 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
 
-            implementation("io.ktor:ktor-client-core:2.3.11")
-            implementation("io.ktor:ktor-client-cio:2.3.11")
-            implementation("io.ktor:ktor-client-content-negotiation:2.3.11")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
-
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+            implementation("org.slf4j:slf4j-simple:2.0.12")
         }
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force("io.ktor:ktor-client-core:2.3.13")
+        force("io.ktor:ktor-client-cio:2.3.13")
+        force("io.ktor:ktor-client-content-negotiation:2.3.13")
+        force("io.ktor:ktor-serialization-kotlinx-json:2.3.13")
+        force("io.ktor:ktor-utils:2.3.13")
+    }
+}
 
 compose.desktop {
     application {

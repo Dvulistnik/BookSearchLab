@@ -36,7 +36,6 @@ fun MainScreen() {
     val openLibraryApi = remember { OpenLibraryApi(HttpClientProvider.client) }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        // Поле ввода для поискового запроса и кнопка поиска
         OutlinedTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
@@ -45,10 +44,10 @@ fun MainScreen() {
             singleLine = true,
             trailingIcon = {
                 IconButton(onClick = {
-                    errorMessage = null // Сбрасываем сообщение об ошибке при новом поиске
-                    isLoading = true // Показываем индикатор загрузки
-                    books.clear() // Очищаем предыдущие результаты
-                    coroutineScope.launch { // Запускаем корутину для асинхронного поиска
+                    errorMessage = null
+                    isLoading = true
+                    books.clear()
+                    coroutineScope.launch {
                         try {
                             // 1. Поиск в Google Books API
                             val googleBooksResponse = googleBooksApi.searchBooks(searchQuery)
@@ -71,13 +70,12 @@ fun MainScreen() {
                                     openLibraryResponse.docs?.firstOrNull()?.let { olDoc ->
                                         publishedYear = olDoc.first_publish_year
                                         pageCount = olDoc.number_of_pages_median
-                                        // Если есть публичный скан и IA ID, формируем ссылку
+
                                         if (olDoc.public_scan_b == true && olDoc.ia != null && olDoc.ia.isNotEmpty()) {
                                             openLibraryLink = "https://archive.org/details/${olDoc.ia.first()}"
                                         }
                                     }
                                 } catch (e: Exception) {
-                                    // Логируем ошибку, но не прерываем общий поиск
                                     System.err.println("Ошибка при запросе к Open Library для книги '$title': ${e.message}")
                                 }
 
@@ -100,11 +98,10 @@ fun MainScreen() {
                                 errorMessage = "Книги по вашему запросу не найдены."
                             }
                         } catch (e: Exception) {
-                            // Обработка общих ошибок сети или API
                             errorMessage = "Ошибка при загрузке данных: ${e.message}"
                             e.printStackTrace()
                         } finally {
-                            isLoading = false // Завершаем загрузку
+                            isLoading = false
                         }
                     }
                 }) {
@@ -115,7 +112,6 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Индикатор загрузки или сообщение об ошибке
         if (isLoading) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         } else if (errorMessage != null) {
